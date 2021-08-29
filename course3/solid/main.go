@@ -1,5 +1,5 @@
-package main
+package main2
 
-func main1() {
+func main() {
 
 }
