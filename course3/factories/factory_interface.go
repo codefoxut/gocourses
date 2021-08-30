@@ -33,7 +33,7 @@ func NewPerson(name string, age int) Person {
 	return &person{name: name, age: age}
 }
 
-func main() {
+func execute_factory() {
 	p := NewPerson("James", 50)
 	p.SayHello()
 

@@ -79,7 +79,7 @@ func NewAuxOfficeEmployee(name string, suite int) *Employee {
 	return newEmployee(&auxOffice, name, suite)
 }
 
-func main() {
+func execute() {
 	john := Person{"John",
 		&Address{"123 London Rd", "London", "UK"},
 		[]string{"Chris", "Matt", "Sam"}}

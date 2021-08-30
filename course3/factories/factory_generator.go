@@ -49,7 +49,7 @@ func NewEmployee(role int) *Employee {
 	}
 }
 
-func main() {
+func execute_generator() {
 	developerFactory := NewEmployeeFactory("Developer", 60000)
 	managerFactory := NewEmployeeFactory("Manager", 80000)
 
