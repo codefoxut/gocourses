@@ -1,4 +1,4 @@
-package main
+package person_builder2
 
 import (
 	"fmt"
