@@ -2,8 +2,9 @@ package cards_test
 
 import (
 	"os"
-	"cards"
 	"testing"
+
+	"course2/cards"
 )
 
 func TestNewDeck(t *testing.T) {
