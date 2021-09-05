@@ -72,19 +72,24 @@ func (dl *DoublyLinkedList) InsertAtIndex(index, val int) error {
 		dl.Append(val)
 		return nil
 	}
-	indexedNode, err := dl.getNodeWithIndex(index)
+	preIndexedNode, err := dl.getNodeWithIndex(index -1)
+	indexedNode := preIndexedNode.nextNode
 	if err != nil {
 		return err
 	}
 	node := &DLNode{val, nil, nil}
-	preIndexedNode := indexedNode.previousNode
+
 	if preIndexedNode != nil {
 		preIndexedNode.nextNode = node
 	}
 
 	node.previousNode = preIndexedNode
 	node.nextNode = indexedNode
-	indexedNode.previousNode = node
+	
+	if indexedNode != nil {
+		indexedNode.previousNode = node
+	}
+	
 	dl.size++
 	return nil
 

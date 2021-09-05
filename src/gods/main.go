@@ -15,11 +15,16 @@ func main() {
 	// fmt.Println("dll execution")
 	// ds.ExecuteStackDLL()
 
-	fmt.Println("//Queue//")
-	ds.ExecuteQueueSlice()
-	fmt.Println("//Queue  SLL//")
-	ds.ExecuteQueueSLL()
-	fmt.Println("//Queue DLL//")
-	ds.ExecuteQueueDLL()
+	// fmt.Println("//Queue//")
+	// ds.ExecuteQueueSlice()
+	// fmt.Println("//Queue  SLL//")
+	// ds.ExecuteQueueSLL()
+	// fmt.Println("//Queue DLL//")
+	// ds.ExecuteQueueDLL()
+
+	fmt.Println("//Dequeue//")
+	ds.ExecuteDequeSLL()
+	fmt.Println("//Dequeue-- DLL//")
+	ds.ExecuteDequeDLL()
 
 }
