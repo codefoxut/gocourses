@@ -1,4 +1,4 @@
-package linked_list
+package main
 
 import (
 	"fmt"
@@ -188,7 +188,7 @@ func (ll *LinkedList) RemoveAtIndex(index int) (int, error) {
 	ll.lock.RLock()
 	defer ll.lock.RUnlock()
 	if index < 0 || index > ll.size {
-		return 0, fmt.Errorf("Index out of bounds")
+		return 0, fmt.Errorf("index out of bounds")
 	}
 	indexedNode1, _ := ll.GetNodeAtIndex(index - 1)
 	indexedNode := indexedNode1.nextNode
@@ -221,7 +221,7 @@ func ExecuteLinkedList() {
 
 }
 
-func main() {
-	ExecuteLinkedList()
+// func main() {
+// 	ExecuteLinkedList()
 
-}
+// }
