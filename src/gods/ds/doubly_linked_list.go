@@ -1,4 +1,4 @@
-package main
+package ds
 
 import (
 	"fmt"
@@ -13,6 +13,10 @@ type DLNode struct {
 
 func (n *DLNode) String() {
 	fmt.Printf("%d", n.value)
+}
+
+func (n *DLNode) GetValue() int {
+	return n.value
 }
 
 type DoublyLinkedList struct {
@@ -57,7 +61,7 @@ func (dl *DoublyLinkedList) getNodeWithIndex(index int) (*DLNode, error) {
 	return indexedNode, nil
 }
 
-func (dl *DoublyLinkedList) Insert(index, val int) error {
+func (dl *DoublyLinkedList) InsertAtIndex(index, val int) error {
 	dl.lock.RLock()
 	defer dl.lock.RUnlock()
 	if dl.size == 0 || index == 0 {
@@ -82,7 +86,7 @@ func (dl *DoublyLinkedList) Insert(index, val int) error {
 
 }
 
-func (dl *DoublyLinkedList) RemoveAt(index int) (int, error) {
+func (dl *DoublyLinkedList) RemoveAtIndex(index int) (int, error) {
 	dl.lock.RLock()
 	defer dl.lock.RUnlock()
 
@@ -91,8 +95,15 @@ func (dl *DoublyLinkedList) RemoveAt(index int) (int, error) {
 		return 0, err
 	}
 
-	item.previousNode.nextNode = item.nextNode
-	item.nextNode.previousNode = item.previousNode
+	if item.previousNode != nil {
+		item.previousNode.nextNode = item.nextNode
+	}
+	if item.nextNode != nil {
+		item.nextNode.previousNode = item.previousNode
+	}
+	if item == dl.Head() {
+		dl.head = dl.head.nextNode
+	}
 	item.previousNode = nil
 	item.nextNode = nil
 	dl.size--
@@ -140,7 +151,7 @@ func (dl *DoublyLinkedList) String() {
 
 }
 
-func (dl *DoublyLinkedList) Head() *DLNode {
+func (dl *DoublyLinkedList) Head() NodeInterface {
 	dl.lock.RLock()
 	defer dl.lock.RUnlock()
 	return dl.head
@@ -163,6 +174,10 @@ func NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{}
 }
 
+func NewDoublyLinkedListWithInterface() LinkedListInterface {
+	return &DoublyLinkedList{}
+}
+
 func ExecuteDoublyLinkedList() {
 	dll := NewDoublyLinkedList()
 	x := dll.IndexOf(36)
@@ -172,14 +187,16 @@ func ExecuteDoublyLinkedList() {
 	dll.Append(12)
 	dll.Append(14)
 	dll.String()
-	dll.Insert(2, 25)
-	dll.Insert(1, 29)
-	dll.Insert(29, 1)
+	dll.InsertAtIndex(2, 25)
+	dll.InsertAtIndex(1, 29)
+	dll.InsertAtIndex(29, 1)
 	dll.String()
-	item, err := dll.RemoveAt(3)
+	item, err := dll.RemoveAtIndex(0)
+	fmt.Println(item, err)
+	item, err = dll.RemoveAtIndex(3)
 	fmt.Println(item, err)
 	dll.String()
-	item, err = dll.RemoveAt(6)
+	item, err = dll.RemoveAtIndex(6)
 	fmt.Println(item, err)
 	x = dll.IndexOf(10)
 	fmt.Println("index of 10", x)
@@ -187,6 +204,7 @@ func ExecuteDoublyLinkedList() {
 	fmt.Println(dll.GetNodesBetweenValues(10, 20))
 
 }
-func main() {
-	ExecuteDoublyLinkedList()
-}
+
+// func main() {
+// 	ExecuteDoublyLinkedList()
+// }

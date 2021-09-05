@@ -1,4 +1,4 @@
-package main
+package ds
 
 import (
 	"fmt"
@@ -8,6 +8,14 @@ import (
 type LLNode struct {
 	value    int
 	nextNode *LLNode
+}
+
+func (n *LLNode) String() {
+	fmt.Println(n.value)
+}
+
+func (n *LLNode) GetValue() int {
+	return n.value
 }
 
 type LLError struct {
@@ -24,14 +32,13 @@ type LinkedList struct {
 	lock sync.RWMutex
 }
 
-func (ll *LinkedList) AddtoHead(val int) *LinkedList {
+func (ll *LinkedList) Append(val int) {
 	ll.lock.RLock()
 	defer ll.lock.RUnlock()
 	node := &LLNode{value: val, nextNode: ll.head}
 	fmt.Println(node)
 	ll.head = node
 	ll.size++
-	return ll
 }
 
 func (ll *LinkedList) IterateList() []int {
@@ -103,16 +110,21 @@ func (ll *LinkedList) IndexOf(val int) int {
 	defer ll.lock.RUnlock()
 	// find node at index or the last one
 	counter := 0
+	found := false
 	for item := ll.head; item != nil; item = item.nextNode {
 		if item.value == val {
+			found = true
 			break
 		}
 		counter++
 	}
+	if !found {
+		return -1
+	}
 	return counter
 }
 
-func (ll *LinkedList) InsertAtIndex(index, val int) {
+func (ll *LinkedList) InsertAtIndex(index, val int) error {
 	ll.lock.RLock()
 	defer ll.lock.RUnlock()
 	node := &LLNode{value: val}
@@ -131,6 +143,7 @@ func (ll *LinkedList) InsertAtIndex(index, val int) {
 		indexedNode.nextNode = node
 	}
 	ll.size++
+	return nil
 }
 
 func (ll *LinkedList) AddAfterValue(val, newNodeValue int) error {
@@ -172,7 +185,7 @@ func (ll *LinkedList) IsEmpty() bool {
 	return ll.head == nil
 }
 
-func (ll *LinkedList) Head() *LLNode {
+func (ll *LinkedList) Head() NodeInterface {
 	return ll.head
 }
 
@@ -180,15 +193,20 @@ func (ll *LinkedList) Size() (counter int) {
 	for item := ll.head; item != nil; item = item.nextNode {
 		counter++
 	}
-	fmt.Print("ll.size", ll.size)
+	fmt.Println("ll.size", ll.size)
 	return counter
 }
 
 func (ll *LinkedList) RemoveAtIndex(index int) (int, error) {
 	ll.lock.RLock()
 	defer ll.lock.RUnlock()
-	if index < 0 || index > ll.size {
+	if index < 0 || index > ll.size || ll.size == 0 {
 		return 0, fmt.Errorf("index out of bounds")
+	}
+	if index == 0 {
+		item := ll.head
+		ll.head = item.nextNode
+		return item.value, nil
 	}
 	indexedNode1, _ := ll.GetNodeAtIndex(index - 1)
 	indexedNode := indexedNode1.nextNode
@@ -199,14 +217,22 @@ func (ll *LinkedList) RemoveAtIndex(index int) (int, error) {
 
 }
 
+func NewLinkedList() *LinkedList {
+	return &LinkedList{}
+}
+
+func NewLinkedListInterface() LinkedListInterface {
+	return &LinkedList{}
+}
+
 func ExecuteLinkedList() {
 	linkedList := LinkedList{}
 	fmt.Println(linkedList.head)
 	linkedList.InsertAtIndex(19, 1000)
 	linkedList.AddToEnd(12)
-	linkedList.AddtoHead(10)
+	linkedList.Append(10)
 	// fmt.Println(linkedList)
-	linkedList.AddtoHead(25)
+	linkedList.Append(25)
 	linkedList.AddToEnd(100)
 	linkedList.InsertAtIndex(19, 1100)
 	fmt.Println(linkedList.head.value)
@@ -214,7 +240,7 @@ func ExecuteLinkedList() {
 	fmt.Println(linkedList.FindNodeWithValue(12))
 	fmt.Println(linkedList.FindNodeWithValue(120))
 	fmt.Println("SIZE:", linkedList.Size())
-	val, err := linkedList.RemoveAtIndex(3)
+	val, err := linkedList.RemoveAtIndex(1)
 	fmt.Printf("remove at %v %s \n", val, err)
 	linkedList.String()
 	fmt.Println("index of 10", linkedList.IndexOf(10))
@@ -223,5 +249,4 @@ func ExecuteLinkedList() {
 
 // func main() {
 // 	ExecuteLinkedList()
-
 // }
