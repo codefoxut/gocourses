@@ -84,7 +84,11 @@ func (ll *LinkedList) AddToEnd(val int) {
 	ll.size++
 }
 
-func (ll *LinkedList) GetNodeAtIndex(index int) (*LLNode, error) {
+func (ll *LinkedList) GetNodeAtIndex(index int) (NodeInterface, error) {
+	return ll.getNodeByIndex(index)
+}
+
+func (ll *LinkedList) getNodeByIndex(index int) (*LLNode, error) {
 	var err error
 	var indexedNode *LLNode
 	// find node at index or the last one
@@ -208,7 +212,7 @@ func (ll *LinkedList) RemoveAtIndex(index int) (int, error) {
 		ll.head = item.nextNode
 		return item.value, nil
 	}
-	indexedNode1, _ := ll.GetNodeAtIndex(index - 1)
+	indexedNode1, _ := ll.getNodeByIndex(index - 1)
 	indexedNode := indexedNode1.nextNode
 	indexedNode1.nextNode = indexedNode.nextNode
 	indexedNode.nextNode = nil

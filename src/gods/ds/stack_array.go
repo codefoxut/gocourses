@@ -18,9 +18,9 @@ func (n *ArrayNode) String() {
 }
 
 type StackSlice struct {
-	src          []*ArrayNode
-	size         int
-	lock         sync.RWMutex
+	src  []*ArrayNode
+	size int
+	lock sync.RWMutex
 }
 
 func (s *StackSlice) Push(val int) {
@@ -28,18 +28,18 @@ func (s *StackSlice) Push(val int) {
 	defer s.lock.RUnlock()
 
 	node := &ArrayNode{val}
-	s.src  = append(s.src, node)
+	s.src = append(s.src, node)
 	s.size++
 }
 
 func (s *StackSlice) Pop() (int, error) {
-	if s.size ==0 {
+	if s.size == 0 {
 		return 0, fmt.Errorf("stack is empty")
 	}
 	s.size--
 	node := s.src[s.size]
 	s.src = s.src[0:s.size]
-	
+
 	return node.GetValue(), nil
 }
 
@@ -61,7 +61,10 @@ func (s *StackSlice) Top() NodeInterface {
 func (s *StackSlice) String() {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
-	fmt.Println(s.src)
+	for _, v := range s.src {
+		fmt.Print(v.GetValue())
+	}
+	fmt.Println()
 }
 
 func NewStackSlice() StackInterface {

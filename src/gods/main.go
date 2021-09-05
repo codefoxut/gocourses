@@ -8,11 +8,18 @@ import (
 
 func main() {
 	// ds.ExecuteLinkedList()
-	ds.ExecuteDoublyLinkedList()
-	ds.ExecuteStackSLL()
-	fmt.Println("slice execution")
-	ds.ExecuteStackSlice()
-	fmt.Println("dll execution")
-	ds.ExecuteStackDLL()
+	// ds.ExecuteDoublyLinkedList()
+	// ds.ExecuteStackSLL()
+	// fmt.Println("slice execution")
+	// ds.ExecuteStackSlice()
+	// fmt.Println("dll execution")
+	// ds.ExecuteStackDLL()
+
+	fmt.Println("//Queue//")
+	ds.ExecuteQueueSlice()
+	fmt.Println("//Queue  SLL//")
+	ds.ExecuteQueueSLL()
+	fmt.Println("//Queue DLL//")
+	ds.ExecuteQueueDLL()
 
 }

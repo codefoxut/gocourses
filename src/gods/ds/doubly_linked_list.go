@@ -43,6 +43,10 @@ func (dl *DoublyLinkedList) Append(val int) {
 
 }
 
+func (dl *DoublyLinkedList) GetNodeAtIndex(index int) (NodeInterface, error) {
+	return dl.getNodeWithIndex(index)
+}
+
 func (dl *DoublyLinkedList) getNodeWithIndex(index int) (*DLNode, error) {
 	if index < 0 || index > dl.size {
 		return nil, fmt.Errorf("index out of bounds")
