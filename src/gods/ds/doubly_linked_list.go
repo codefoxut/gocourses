@@ -21,6 +21,7 @@ func (n *DLNode) GetValue() int {
 
 type DoublyLinkedList struct {
 	head *DLNode
+	// tail *DLNode
 	size int
 	lock sync.RWMutex
 }

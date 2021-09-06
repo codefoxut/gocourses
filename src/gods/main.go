@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"gods/ds"
 )
 
@@ -22,9 +20,11 @@ func main() {
 	// fmt.Println("//Queue DLL//")
 	// ds.ExecuteQueueDLL()
 
-	fmt.Println("//Dequeue//")
-	ds.ExecuteDequeSLL()
-	fmt.Println("//Dequeue-- DLL//")
-	ds.ExecuteDequeDLL()
+	// fmt.Println("//Dequeue//")
+	// ds.ExecuteDequeSLL()
+	// fmt.Println("//Dequeue-- DLL//")
+	// ds.ExecuteDequeDLL()
+
+	ds.ExecuteBinaryTree1()
 
 }
