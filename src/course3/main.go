@@ -3,7 +3,8 @@ package main
 import (
 	// "course3/observer"
 	// "course3/state_machine"
-	"course3/strategy"
+	// "course3/strategy"
+	"course3/template_pattern"
 )
 
 func main() {
@@ -13,5 +14,7 @@ func main() {
 	// state_machine.ExecuteStateMachineHandmade()
 	// fmt.Println("Switch case machine.")
 	// state_machine.ExecuteStateMachineSwitch()
-	strategy.ExecuteStrategyPattern()
+	// strategy.ExecuteStrategyPattern()
+	template_pattern.ExecuteTemplateMethod()
+	template_pattern.ExecuteTemplateFunction()
 }
